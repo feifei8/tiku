@@ -1,0 +1,39 @@
+{
+  "name": "edwin404/laravel-tecmz",
+  "description": "Quick development",
+  "keywords": [
+    "Quick development"
+  ],
+  "homepage": "https://github.com/edwin404/laravel-tecmz",
+  "license": "MIT",
+  "version": "dev-master",
+  "authors": [
+    {
+      "name": "edwin",
+      "email": "edwin404@163.com",
+      "homepage": "http://edwin404.com"
+    }
+  ],
+  "require": {
+    "edwin404/laravel-base": "*",
+    "edwin404/laravel-common": "*",
+    "edwin404/laravel-admin": "*",
+    "edwin404/laravel-smart-assets": "*"
+  },
+  "require-dev": {
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "autoload": {
+    "psr-4": {
+      "Edwin404\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+    ],
+    "psr-4": {
+    }
+  }
+}

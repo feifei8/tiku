@@ -1,0 +1,42 @@
+{
+  "name": "edwin404/laravel-base",
+  "description": "Quick development",
+  "keywords": [
+    "Quick development"
+  ],
+  "homepage": "https://github.com/edwin404/laravel-base",
+  "license": "MIT",
+  "version": "dev-master",
+  "authors": [
+    {
+      "name": "edwin",
+      "email": "edwin404@163.com",
+      "homepage": "http://edwin404.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "laravel/framework": "5.1.*",
+    "edwin404/laravel-smart-assets": "*",
+    "chumper/zipper": "^0.6.1",
+    "league/commonmark": "^0.15.3",
+    "mews/purifier": "2.0.8"
+  },
+  "require-dev": {
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "autoload": {
+    "psr-4": {
+      "Edwin404\\Base\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+    ],
+    "psr-4": {
+    }
+  },
+  "minimum-stability": "dev"
+}

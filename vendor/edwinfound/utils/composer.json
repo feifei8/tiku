@@ -1,0 +1,36 @@
+{
+  "name": "edwinfound/utils",
+  "description": "php utils",
+  "keywords": [
+    "utils"
+  ],
+  "homepage": "https://github.com/edwinfound/utils",
+  "license": "MIT",
+  "version": "dev-master",
+  "authors": [
+    {
+      "name": "edwin",
+      "email": "edwin404@163.com",
+      "homepage": "http://edwin404.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.0"
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "autoload": {
+    "psr-4": {
+      "EdwinFound\\Utils\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "EdwinFound\\Utils\\Tests\\": "tests"
+    }
+  }
+}
