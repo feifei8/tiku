@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Edwin404\Member\Services\MemberService;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends BaseController
 {
@@ -31,10 +32,9 @@ class AuthController extends BaseController
     public function login(MemberService $memberService)
     {
         $user = $memberService->load('1');
-        if (!$token = auth()->attempt($user)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
+        $customClaims = ['foo' => 'bar', 'baz' => 'bob', 'sub' => $user];
+        $payload = JWTFactory::make($customClaims);
+        $token = JWTAuth::encode($payload);
         return $this->respondWithToken($token);
     }
 
@@ -79,10 +79,11 @@ class AuthController extends BaseController
      */
     protected function respondWithToken($token)
     {
-        return response()->json([
+        $data= [
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+            'expires_in' => 60
+        ];
+        return response()->json($data);
     }
 }
