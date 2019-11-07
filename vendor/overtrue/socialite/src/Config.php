@@ -77,24 +77,37 @@ class Config implements ArrayAccess
         }
 
         $keys = explode('.', $key);
+        $config = &$this->config;
 
         while (count($keys) > 1) {
             $key = array_shift($keys);
-            if (!isset($this->config[$key]) || !is_array($this->config[$key])) {
-                $this->config[$key] = [];
+            if (!isset($config[$key]) || !is_array($config[$key])) {
+                $config[$key] = [];
             }
-            $this->config = &$this->config[$key];
+            $config = &$config[$key];
         }
 
-        $this->config[array_shift($keys)] = $value;
+        $config[array_shift($keys)] = $value;
 
-        return $this->config;
+        return $config;
+    }
+
+    /**
+     * Determine if the given configuration value exists.
+     *
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function has($key)
+    {
+        return (bool) $this->get($key);
     }
 
     /**
      * Whether a offset exists.
      *
-     * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
+     * @see  http://php.net/manual/en/arrayaccess.offsetexists.php
      *
      * @param mixed $offset <p>
      *                      An offset to check for.
@@ -115,7 +128,7 @@ class Config implements ArrayAccess
     /**
      * Offset to retrieve.
      *
-     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+     * @see  http://php.net/manual/en/arrayaccess.offsetget.php
      *
      * @param mixed $offset <p>
      *                      The offset to retrieve.
@@ -133,7 +146,7 @@ class Config implements ArrayAccess
     /**
      * Offset to set.
      *
-     * @link  http://php.net/manual/en/arrayaccess.offsetset.php
+     * @see  http://php.net/manual/en/arrayaccess.offsetset.php
      *
      * @param mixed $offset <p>
      *                      The offset to assign the value to.
@@ -152,7 +165,7 @@ class Config implements ArrayAccess
     /**
      * Offset to unset.
      *
-     * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
+     * @see  http://php.net/manual/en/arrayaccess.offsetunset.php
      *
      * @param mixed $offset <p>
      *                      The offset to unset.

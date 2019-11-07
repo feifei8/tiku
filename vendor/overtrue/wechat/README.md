@@ -1,56 +1,30 @@
-<p align="center">
-<a href="https://easywechat.org/">
-<img src="https://easywechat.org/logo.svg" alt="EasyWeChat" width="160">
-</a>
+<img align="right" width="100" src="https://user-images.githubusercontent.com/1472352/49656357-1e874080-fa78-11e8-80ea-69e2103345cf.png" alt="EasyWeChat Logo"/>
 
-<p align="center">📦 It is probably the best SDK in the world for developing Wechat App.</p>
+<h1 align="left"><a href="https://www.easywechat.com">EasyWeChat</a></h1>
 
-<p align="center">
-<a href="https://travis-ci.org/overtrue/wechat"><img src="https://travis-ci.org/overtrue/wechat.svg?branch=master" alt="Build Status"></a>
-<a href="https://packagist.org/packages/overtrue/wechat"><img src="https://poser.pugx.org/overtrue/wechat/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/overtrue/wechat"><img src="https://poser.pugx.org/overtrue/wechat/v/unstable.svg" alt="Latest Unstable Version"></a>
-<a href="https://scrutinizer-ci.com/g/overtrue/wechat/build-status/master"><img src="https://scrutinizer-ci.com/g/overtrue/wechat/badges/build.png?b=master" alt="Build Status"></a>
-<a href="https://scrutinizer-ci.com/g/overtrue/wechat/?branch=master"><img src="https://scrutinizer-ci.com/g/overtrue/wechat/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
-<a href="https://scrutinizer-ci.com/g/overtrue/wechat/?branch=master"><img src="https://scrutinizer-ci.com/g/overtrue/wechat/badges/coverage.png?b=master" alt="Code Coverage"></a>
-<a href="https://packagist.org/packages/overtrue/wechat"><img src="https://poser.pugx.org/overtrue/wechat/downloads" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/overtrue/wechat"><img src="https://poser.pugx.org/overtrue/wechat/license" alt="License"></a>
-</p>
+📦 It is probably the best SDK in the world for developing Wechat App.
 
-</div>
+[![Test Status](https://github.com/overtrue/wechat/workflows/Test/badge.svg)](https://github.com/overtrue/wechat/actions) 
+[![Lint Status](https://github.com/overtrue/wechat/workflows/Lint/badge.svg)](https://github.com/overtrue/wechat/actions) 
+[![Latest Stable Version](https://poser.pugx.org/overtrue/wechat/v/stable.svg)](https://packagist.org/packages/overtrue/wechat) 
+[![Latest Unstable Version](https://poser.pugx.org/overtrue/wechat/v/unstable.svg)](https://packagist.org/packages/overtrue/wechat)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/overtrue/wechat/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/overtrue/wechat/?branch=master) 
+[![Code Coverage](https://scrutinizer-ci.com/g/overtrue/wechat/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/overtrue/wechat/?branch=master) 
+[![Total Downloads](https://poser.pugx.org/overtrue/wechat/downloads)](https://packagist.org/packages/overtrue/wechat) 
+[![License](https://poser.pugx.org/overtrue/wechat/license)](https://packagist.org/packages/overtrue/wechat) 
 
-## Supporting EasyWeChat
-
-EasyWeChat 是一个 MIT 协议的开源项目. 它的发展离不开背后的支持者。
-
-特别感谢他们的慷慨赞助:
-
-<a href="https://laravist.com">
-  <img width="160" src="https://o0dpls1ru.qnssl.com/laravist.com-logo.png">
-</a>
-
-## Feature
-
- - 命名不那么乱七八糟；
- - 隐藏开发者不需要关注的细节；
- - 方法使用更优雅，不必再去研究那些奇怪的的方法名或者类名是做啥用的；
- - 自定义缓存方式；
- - 符合 [PSR](https://github.com/php-fig/fig-standards) 标准，你可以各种方便的与你的框架集成；
- - 高度抽象的消息类，免去各种拼json与xml的痛苦；
- - 详细 Debug 日志，一切交互都一目了然；
 
 ## Requirement
 
-1. PHP >= 5.5.9
-2. **[composer](https://getcomposer.org/)**
+1. PHP >= 7.1
+2. **[Composer](https://getcomposer.org/)**
 3. openssl 拓展
 4. fileinfo 拓展（素材管理模块需要用到）
-
-> SDK 对所使用的框架并无特别要求
 
 ## Installation
 
 ```shell
-composer require "overtrue/wechat:~3.1" -vvv
+$ composer require "overtrue/wechat:^4.2" -vvv
 ```
 
 ## Usage
@@ -60,12 +34,11 @@ composer require "overtrue/wechat:~3.1" -vvv
 ```php
 <?php
 
-use EasyWeChat\Foundation\Application;
+use EasyWeChat\Factory;
 
 $options = [
-    'debug'     => true,
-    'app_id'    => 'wx3cf0f39249eb0e60',
-    'secret'    => 'f1c242f4f28f735d4687abb469072a29',
+    'app_id'    => 'wx3cf0f39249eb0exxx',
+    'secret'    => 'f1c242f4f28f735d4687abb469072xxx',
     'token'     => 'easywechat',
     'log' => [
         'level' => 'debug',
@@ -74,13 +47,13 @@ $options = [
     // ...
 ];
 
-$app = new Application($options);
+$app = Factory::officialAccount($options);
 
 $server = $app->server;
 $user = $app->user;
 
-$server->setMessageHandler(function($message) use ($user) {
-    $fromUser = $user->get($message->FromUserName);
+$server->push(function($message) use ($user) {
+    $fromUser = $user->get($message['FromUserName']);
 
     return "{$fromUser->nickname} 您好！欢迎关注 overtrue!";
 });
@@ -88,23 +61,32 @@ $server->setMessageHandler(function($message) use ($user) {
 $server->serve()->send();
 ```
 
-更多请参考[http://easywechat.org/](http://easywechat.org/)。
+更多请参考 [https://www.easywechat.com/](https://www.easywechat.com/)。
 
-## Documention
+## Documentation
 
-- Homepage: http://easywechat.org/
-- Forum: https://forum.easywechat.org
-
-> 强烈建议看懂微信文档后再来使用本 SDK。
+[官网](https://www.easywechat.com)  · [教程](https://www.easywechat.com/tutorials)  ·  [讨论](https://yike.io/)  ·  [微信公众平台](https://mp.weixin.qq.com/wiki)  ·  [WeChat Official](http://admin.wechat.com/wiki)
 
 ## Integration
 
 [Laravel 5 拓展包: overtrue/laravel-wechat](https://github.com/overtrue/laravel-wechat)
 
-## Contribution
+## Contributors
 
-[Contribution Guide](.github/CONTRIBUTING.md)
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/overtrue/wechat/graphs/contributors"><img src="https://opencollective.com/wechat/contributors.svg?width=890" /></a>
+
+
+## PHP 扩展包开发
+
+> 想知道如何从零开始构建 PHP 扩展包？
+>
+> 请关注我的实战课程，我会在此课程中分享一些扩展开发经验 —— [《PHP 扩展包实战教程 - 从入门到发布》](https://learnku.com/courses/creating-package)
+
 
 ## License
 
 MIT
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fovertrue%2Fwechat.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fovertrue%2Fwechat?ref=badge_large)

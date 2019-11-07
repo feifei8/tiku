@@ -1,6 +1,6 @@
 <?php
 Route::group([
-    'prefix' => 'auth'
+    'prefix' => 'weixin'
 
 ], function ($router) {
 
@@ -8,4 +8,6 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+
+    Route::any('serve', '\App\Http\Controllers\Weixin\WeChatController@serve');
 });

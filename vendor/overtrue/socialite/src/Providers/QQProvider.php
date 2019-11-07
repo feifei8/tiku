@@ -18,7 +18,7 @@ use Overtrue\Socialite\User;
 /**
  * Class QQProvider.
  *
- * @link http://wiki.connect.qq.com/oauth2-0%E7%AE%80%E4%BB%8B [QQ - OAuth 2.0 登录QQ]
+ * @see http://wiki.connect.qq.com/oauth2-0%E7%AE%80%E4%BB%8B [QQ - OAuth 2.0 登录QQ]
  */
 class QQProvider extends AbstractProvider implements ProviderInterface
 {
@@ -195,7 +195,7 @@ class QQProvider extends AbstractProvider implements ProviderInterface
      */
     protected function removeCallback($response)
     {
-        if (strpos($response, 'callback') !== false) {
+        if (false !== strpos($response, 'callback')) {
             $lpos = strpos($response, '(');
             $rpos = strrpos($response, ')');
             $response = substr($response, $lpos + 1, $rpos - $lpos - 1);
